@@ -82,7 +82,7 @@ std::string orderByStatement() {
     }
 }
 
-std::string returnData() {
+void returnData() {
     output("Started returnData command use the help command ");
     std::string criteriaStatement = ""; // E.g WHERE 1=1
     std::string selectStatement = "SELECT ";
@@ -148,7 +148,6 @@ std::string returnData() {
     output("Finished Query");
     std::cout << finishedQuery << "\n";
 
-    return "";
 }
 
 void dropDatabase() {
@@ -160,19 +159,28 @@ void dropDatabase() {
     output("DROP DATABASE "+databaseName+";");
 }
 
+void dropTable() {
+    std::string tableName;
+    std::cout << "What's the table name: ";
+    std::cin >> tableName;
+
+    output("Finished Query");
+    output("DROP TABLE " + tableName + ";");
+}
+
 auto commandCaller(std::string command, std::string locationFired) {
     if (locationFired == "main") {
         if (command == "help") { helpCommand("main"); return ""; }
         else if (command == "exit") { return "break"; }
         else if (command == "deleteDatabase") { dropDatabase(); }
         else if (command == "returnData") { returnData(); }
+        else if (command == "deleteTable") { dropTable(); }
         else { output("Unknown Command"); }
     }
     else if (locationFired == "returnData") {
         if (command == "help") { helpCommand("returnData"); }
     }
 }
-
 
 int main()
 {
