@@ -1,4 +1,3 @@
-
 // THIS IS UNFINISHED AND I'M STILL WORKING ON
 
 #include <iostream>
@@ -152,10 +151,20 @@ std::string returnData() {
     return "";
 }
 
+void dropDatabase() {
+    std::string databaseName;
+    std::cout << "What's the database name: ";
+    std::cin >> databaseName;
+
+    output("Finished Query");
+    output("DROP DATABASE "+databaseName+";");
+}
+
 auto commandCaller(std::string command, std::string locationFired) {
     if (locationFired == "main") {
         if (command == "help") { helpCommand("main"); return ""; }
         else if (command == "exit") { return "break"; }
+        else if (command == "deleteDatabase") { dropDatabase(); }
         else if (command == "returnData") { returnData(); }
         else { output("Unknown Command"); }
     }
