@@ -2,13 +2,15 @@
 
 #include <iostream>
 
-void output(std::string text) { // makes life a bit easier
-    std::cout << text << "\n";
+using std::cout, std::cin, std::string;
+
+void output(string text) { // makes life a bit easier
+    cout << text << "\n";
 }
 
-void helpCommand(std::string command) {
+void helpCommand(string command) {
     output("List of command options");
-    std::string out;
+    string out;
 
     if (command == "main") {
         out = "help \n\
@@ -32,26 +34,26 @@ finishQuery";
     output(out);
 }
 
-std::string orderByStatement() {
+string orderByStatement() {
 
     int numberOfFields;
 
-    std::string statement = "ORDER BY ";
+    string statement = "ORDER BY ";
 
     output("Max of 10 fields");
-    std::cout << "How many fields to be ordered: ";
+    cout << "How many fields to be ordered: ";
 
-    std::cin >> numberOfFields;
+    cin >> numberOfFields;
 
-    if (std::cin.fail()) {
-        std::cin.clear();
-        std::cin.ignore(256, '\n');
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(256, '\n');
     }
     else {
         for (int index = 0; index < numberOfFields; index++) {
-            std::string tempValue;
-            std::cout << "Field Name: ";
-            std::cin >> tempValue;
+            string tempValue;
+            cout << "Field Name: ";
+            cin >> tempValue;
             if (index + 1 == numberOfFields) {
                 statement = statement + tempValue;
             }
@@ -61,13 +63,13 @@ std::string orderByStatement() {
             
         }
 
-        std::string typeOfOrder;
-        std::cout << "ascending Or descending: ";
-        std::cin >> typeOfOrder;
+        string typeOfOrder;
+        cout << "ascending Or descending: ";
+        cin >> typeOfOrder;
 
         if (typeOfOrder != "ascending" && typeOfOrder != "descending") {
-            std::cout << "No Valid Paramater Provided Last Attempt";
-            std::cin >> typeOfOrder;
+            cout << "No Valid Paramater Provided Last Attempt";
+            cin >> typeOfOrder;
         }
         else if (typeOfOrder == "ascending") {
             typeOfOrder = "ASC";
@@ -84,9 +86,9 @@ std::string orderByStatement() {
 
 void returnData() {
     output("Started returnData command use the help command ");
-    std::string criteriaStatement = ""; // E.g WHERE 1=1
-    std::string selectStatement = "SELECT ";
-    std::string orderStatement = "";
+    string criteriaStatement = ""; // E.g WHERE 1=1
+    string selectStatement = "SELECT ";
+    string orderStatement = "";
 
     bool criteria = false; // If there's a criteria we'll change this to true
     bool orderByState = false;
@@ -94,33 +96,33 @@ void returnData() {
     int amountOfFields;
 
     while (true) {
-        std::string command;
-        std::cout << "root@SQLGenerator > returnData > ";
-        std::cin >> command;
+        string command;
+        cout << "root@SQLGenerator > returnData > ";
+        cin >> command;
 
         if (command == "setreturnFields") {
             output("Max of 10 fields");
-            std::cout << "How many fields to be returned: ";
-            std::cin >> amountOfFields;
+            cout << "How many fields to be returned: ";
+            cin >> amountOfFields;
 
-            if (std::cin.fail()) {
+            if (cin.fail()) {
                 output("Invalid Input");
-                std::cin.clear();
-                std::cin.ignore(256, '\n');
+                cin.clear();
+                cin.ignore(256, '\n');
 
             }
             else {
                 for (int index = 0; index < amountOfFields; index++) {
-                    std::string tempValue;
-                    std::cout << "Field Name: ";
-                    std::cin >> tempValue;
+                    string tempValue;
+                    cout << "Field Name: ";
+                    cin >> tempValue;
                     if (index + 1 == amountOfFields) { selectStatement = selectStatement + tempValue; }
                     else { selectStatement = selectStatement + tempValue + ","; }
                 }
 
-                std::cout << "What table should we query from: ";
-                std::string tableName;
-                std::cin >> tableName;
+                cout << "What table should we query from: ";
+                string tableName;
+                cin >> tableName;
 
                 selectStatement = selectStatement + " FROM " + tableName;
             }
@@ -134,7 +136,7 @@ void returnData() {
         else if (command == "help") { helpCommand("returnData"); }
     }
 
-    std::string finishedQuery = selectStatement;
+    string finishedQuery = selectStatement;
 
     if (criteria) {
         finishedQuery = finishedQuery + "\n" + criteriaStatement;
@@ -146,29 +148,29 @@ void returnData() {
 
 
     output("Finished Query");
-    std::cout << finishedQuery << "\n";
+    cout << finishedQuery << "\n";
 
 }
 
 void dropDatabase() {
-    std::string databaseName;
-    std::cout << "What's the database name: ";
-    std::cin >> databaseName;
+    string databaseName;
+    cout << "What's the database name: ";
+    cin >> databaseName;
 
     output("Finished Query");
     output("DROP DATABASE "+databaseName+";");
 }
 
 void dropTable() {
-    std::string tableName;
-    std::cout << "What's the table name: ";
-    std::cin >> tableName;
+    string tableName;
+    cout << "What's the table name: ";
+    cin >> tableName;
 
     output("Finished Query");
     output("DROP TABLE " + tableName + ";");
 }
 
-auto commandCaller(std::string command, std::string locationFired) {
+auto commandCaller(string command, string locationFired) {
     if (locationFired == "main") {
         if (command == "help") { helpCommand("main"); return ""; }
         else if (command == "exit") { return "break"; }
@@ -189,10 +191,10 @@ int main()
     output("To get started use the help command in terminal provided below");
     while (true) {
 
-        std::string command;
+        string command;
         
-        std::cout << "root@SQLGenerator > ";
-        std::cin >> command;
+        cout << "root@SQLGenerator > ";
+        cin >> command;
 
         if (commandCaller(command, "main") == "break") {
             break;
