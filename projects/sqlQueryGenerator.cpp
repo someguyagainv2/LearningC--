@@ -232,6 +232,33 @@ STRING\n\ ");
                 finishedStatement = "WHERE " + firstValue + ">" + secondValue;
             }
         }
+        else if (command == "less") {
+            if (isFirstField == "y" && isSecondField == "y") { // if both values are a field
+
+                finishedStatement = "WHERE " + FirstFieldName + "<" + SecondFieldName;
+            }
+            else if (isFirstField == "y" && isSecondField == "n") {
+                string value;
+
+                cout << "What's the number the field should be less than? ";
+                cin >> value;
+
+                finishedStatement = "WHERE " + FirstFieldName + "<" + value;
+            }
+            else if (isFirstField == "n" && isSecondField == "n") {
+                string firstValue;
+                string secondValue;
+
+                output("Example Format \nFirst Number: 2\nSecond Number:5\nResult:WHERE 2<5");
+                cout << "What's the first number which will be less than other? ";
+                cin >> firstValue;
+
+                cout << "What's the first number which will be less than other? ";
+                cin >> secondValue;
+
+                finishedStatement = "WHERE " + firstValue + "<" + secondValue;
+            }
+        }
     }
 
     return finishedStatement;
