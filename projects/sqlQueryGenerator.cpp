@@ -18,7 +18,6 @@ void helpCommand(string command) {
         out = "help \n\
 returnData\n\
 insertData\n\
-createDatabase\n\
 createTable\n\
 deleteTable\n\
 deleteColumn\n\
@@ -27,9 +26,11 @@ exit";
     }
     /*
     Finished CHECKLIST
-    returnData working on still
+    returnData 
     deleteTable
     deleteDatabase
+    createDatabase
+    deleteColumn
     exit*/
 
     else if (command == "returnData") {
@@ -325,6 +326,19 @@ void createDatabase() {
     output("CREATE DATABASE " + dbName + ";");
 }
 
+void deleteColumn() {
+    string tableName;
+    string columnName;
+
+    cout << "Table Name To Delete Column From: ";
+    cin >> tableName;
+
+    cout << "Column Name To Be Deleted From Table: ";
+    cin >> columnName;
+
+    output("ALTER TABLE " + tableName + "\nDROP COLUMN " + columnName);
+}
+
 void returnData() {
     output("Started returnData command use the help command ");
     string criteriaStatement = ""; // E.g WHERE 1=1
@@ -423,6 +437,7 @@ auto commandCaller(string command, string locationFired) {
         else if (command == "returnData") { returnData(); }
         else if (command == "deleteTable") { dropTable(); }
         else if (command == "createDatabase") { createDatabase(); }
+        else if (command == "deleteColumn") { createDatabase(); }
         else { output("Unknown Command"); }
     }
     else if (locationFired == "returnData") {
