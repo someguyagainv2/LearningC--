@@ -25,14 +25,27 @@ deleteColumn\n\
 deleteDatabase\n\
 exit";
     }
+    /*
+    Finished CHECKLIST
+    returnData working on still
+    deleteTable
+    deleteDatabase
+    exit*/
+
     else if (command == "returnData") {
         out = "help\n\
-back\n\
 setCriteria\n\
 setreturnFields\n\
 setOrder\n\
 finishQuery";
     }
+    /*
+        Finished CHECKLIST
+        setCriteria Working on
+        setreturnFields
+        setOrder
+        finishQuery*/
+    
     else if (command == "returnData.setCriteria") {
         out = "equals\n\
 not_equals\n\
@@ -106,38 +119,42 @@ string setCriteria() {
 
         if (cin.fail()) { cin.clear(); cin.ignore(256, '\n'); continue; } // I'm hoping implementing this continue will then skip running everything past this point
 
+        string isFirstField;
+        string FirstFieldName; // THESE 2 VALUES MAY BE EMPTY
+        string SecondFieldName;
+        string isSecondField;
+
+
+        output("Answer following questions with y or n");
+        cout << "Is the first value a field? ";
+        cin >> isFirstField;
+
+        cout << "Is the second value a field? ";
+        cin >> isSecondField;
+
+        if (isFirstField == "y" && isSecondField == "y") { // if both values are a field
+
+            cout << "Field Name #1: ";
+            cin >> FirstFieldName;
+
+            cout << "Field Name 2#: ";
+            cin >> SecondFieldName;
+        }
+        else if (isFirstField == "y" && isSecondField == "n") {
+
+            cout << "Field Name #1 Name: ";
+            cin >> FirstFieldName;
+        }
+
         if (command == "help") { helpCommand("returnData.setCriteria"); }
-        if (command == "equals") {
-
-            string isFirstField;
-            string isSecondField;
-
-            output("Answer following questions with y or n");
-            cout << "Is the first value a field? ";
-            cin >> isFirstField;
-
-            cout << "Is the second value a field? ";
-            cin >> isSecondField;
+        else if (command == "equals") {
 
             if (isFirstField == "y" && isSecondField == "y") { // if both values are a field
-                string FirstFieldName;
-                string SecondFieldName;
-
-                cout << "Field Name #1: ";
-                cin >> FirstFieldName;
-
-                cout << "Field Name 2#: ";
-                cin >> SecondFieldName;
-
                 finishedStatement = "WHERE " + FirstFieldName + "=" + SecondFieldName;
             }
             else if (isFirstField == "y" && isSecondField == "n") {
                 while (true) {
-                    string fieldName;
                     string fieldType;
-
-                    cout << "Field Name #1 Name: ";
-                    cin >> fieldName;
 
                     cout << "What type of value is 2nd value \n";
                     cout << "Type help to get a list\n";
@@ -158,7 +175,7 @@ STRING\n\ ");
                         cout << "True Or False: ";
                         cin >> boolType;
 
-                        finishedStatement = "WHERE " + fieldName + "=" + boolType;
+                        finishedStatement = "WHERE " + FirstFieldName + "=" + boolType;
                         break;
                     }
                     else if (fieldType == "STRING") {
@@ -167,7 +184,7 @@ STRING\n\ ");
                         cout << "What's the string value to detect: ";
                         cin >> valueToDetect;
 
-                        finishedStatement = "WHERE " + fieldName + "='" + valueToDetect + "'";
+                        finishedStatement = "WHERE " + FirstFieldName + "='" + valueToDetect + "'";
                         break;
                     }
                     else if (fieldType == "NUMBER") {
@@ -176,7 +193,7 @@ STRING\n\ ");
                         cout << "What's the integer's value to detect: ";
                         cin >> valueToDetect;
 
-                        finishedStatement = "WHERE " + fieldName + "=" + valueToDetect;
+                        finishedStatement = "WHERE " + FirstFieldName + "=" + valueToDetect;
                         break;
                     }
                     else { output("Invalid Type"); }
@@ -186,6 +203,33 @@ STRING\n\ ");
 
             if (!finishedStatement.empty()) {
                 break;
+            }
+        }
+        else if (command == "bigger") {
+            if (isFirstField == "y" && isSecondField == "y") { // if both values are a field
+
+                finishedStatement = "WHERE " + FirstFieldName + ">" + SecondFieldName;
+            }
+            else if (isFirstField == "y" && isSecondField == "n") {
+                string value;
+
+                cout << "What's the number the field should be bigger than? ";
+                cin >> value;
+
+                finishedStatement = "WHERE " + FirstFieldName + ">" + value;
+            }
+            else if (isFirstField == "n" && isSecondField == "n") {
+                string firstValue;
+                string secondValue;
+
+                output("Example Format \nFirst Number: 2\nSecond Number:5\nResult:WHERE 2>5");
+                cout << "What's the first number which will be bigger than other? ";
+                cin >> firstValue;
+
+                cout << "What's the first number which will be bigger than other? ";
+                cin >> secondValue;
+
+                finishedStatement = "WHERE " + firstValue + ">" + secondValue;
             }
         }
     }
