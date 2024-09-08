@@ -41,9 +41,7 @@ finishQuery";
     }
     /*
         Finished CHECKLIST
-        setCriteria Working on
-        setreturnFields
-        setOrder
+        FINISHED
         finishQuery*/
     
     else if (command == "returnData.setCriteria") {
@@ -55,11 +53,7 @@ less_equals <= \n\ ";
     }
     /*
     Finished CHECKLIST
-    bigger
-    less
-    equals
-    less_equals
-    bigger_equals*/
+    FINISHED unless I add Not Equal To Again*/
     output(out);
 }
 
@@ -69,7 +63,6 @@ string orderByStatement() {
 
     string statement = "ORDER BY ";
 
-    output("Max of 10 fields");
     cout << "How many fields to be ordered: ";
 
     cin >> numberOfFields;
@@ -323,6 +316,15 @@ STRING\n\ ");
     return finishedStatement;
 }
 
+void createDatabase() {
+    string dbName;
+
+    cout << "Database Name: ";
+    cin >> dbName;
+
+    output("CREATE DATABASE " + dbName + ";");
+}
+
 void returnData() {
     output("Started returnData command use the help command ");
     string criteriaStatement = ""; // E.g WHERE 1=1
@@ -343,7 +345,6 @@ void returnData() {
         cin >> command;
 
         if (command == "setreturnFields") {
-            output("Max of 10 fields");
             cout << "How many fields to be returned: ";
             cin >> amountOfFields;
 
@@ -421,6 +422,7 @@ auto commandCaller(string command, string locationFired) {
         else if (command == "deleteDatabase") { dropDatabase(); }
         else if (command == "returnData") { returnData(); }
         else if (command == "deleteTable") { dropTable(); }
+        else if (command == "createDatabase") { createDatabase(); }
         else { output("Unknown Command"); }
     }
     else if (locationFired == "returnData") {
