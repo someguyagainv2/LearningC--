@@ -54,6 +54,11 @@ less\n\
 bigger_equals >= \n\
 less_equals <= \n\ ";
     }
+    /*
+    Finished CHECKLIST
+    bigger
+    less
+    equals*/
     output(out);
 }
 
@@ -123,7 +128,6 @@ string setCriteria() {
         string FirstFieldName; // THESE 2 VALUES MAY BE EMPTY
         string SecondFieldName;
         string isSecondField;
-
 
         output("Answer following questions with y or n");
         cout << "Is the first value a field? ";
@@ -259,6 +263,60 @@ STRING\n\ ");
                 finishedStatement = "WHERE " + firstValue + "<" + secondValue;
             }
         }
+        else if (command == "bigger_equals") {
+            if (isFirstField == "y" && isSecondField == "y") { // if both values are a field
+
+                finishedStatement = "WHERE " + FirstFieldName + ">=" + SecondFieldName;
+            }
+            else if (isFirstField == "y" && isSecondField == "n") {
+                string value;
+
+                cout << "What's the number the field should be bigger than? ";
+                cin >> value;
+
+                finishedStatement = "WHERE " + FirstFieldName + ">=" + value;
+            }
+            else if (isFirstField == "n" && isSecondField == "n") {
+                string firstValue;
+                string secondValue;
+
+                output("Example Format \nFirst Number: 2\nSecond Number:5\nResult:WHERE 2>=5");
+                cout << "What's the first number which will be bigger than other? ";
+                cin >> firstValue;
+
+                cout << "What's the first number which will be bigger than other? ";
+                cin >> secondValue;
+
+                finishedStatement = "WHERE " + firstValue + ">=" + secondValue;
+            }
+        }
+        else if (command == "less_equals") {
+            if (isFirstField == "y" && isSecondField == "y") { // if both values are a field
+
+                finishedStatement = "WHERE " + FirstFieldName + "<=" + SecondFieldName;
+            }
+            else if (isFirstField == "y" && isSecondField == "n") {
+                string value;
+
+                cout << "What's the number the field should be less than? ";
+                cin >> value;
+
+                finishedStatement = "WHERE " + FirstFieldName + "<=" + value;
+            }
+            else if (isFirstField == "n" && isSecondField == "n") {
+                string firstValue;
+                string secondValue;
+
+                output("Example Format \nFirst Number: 2\nSecond Number:5\nResult:WHERE 2<=5");
+                cout << "What's the first number which will be less than other? ";
+                cin >> firstValue;
+
+                cout << "What's the first number which will be less than other? ";
+                cin >> secondValue;
+
+                finishedStatement = "WHERE " + firstValue + "<=" + secondValue;
+            }
+            }
     }
 
     return finishedStatement;
