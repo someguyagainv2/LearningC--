@@ -48,7 +48,6 @@ finishQuery";
     
     else if (command == "returnData.setCriteria") {
         out = "equals\n\
-not_equals\n\
 bigger\n\
 less\n\
 bigger_equals >= \n\
@@ -58,7 +57,9 @@ less_equals <= \n\ ";
     Finished CHECKLIST
     bigger
     less
-    equals*/
+    equals
+    less_equals
+    bigger_equals*/
     output(out);
 }
 
@@ -230,7 +231,7 @@ STRING\n\ ");
                 cout << "What's the first number which will be bigger than other? ";
                 cin >> firstValue;
 
-                cout << "What's the first number which will be bigger than other? ";
+                cout << "What's the second number which will be less than the first number? ";
                 cin >> secondValue;
 
                 finishedStatement = "WHERE " + firstValue + ">" + secondValue;
@@ -254,10 +255,10 @@ STRING\n\ ");
                 string secondValue;
 
                 output("Example Format \nFirst Number: 2\nSecond Number:5\nResult:WHERE 2<5");
-                cout << "What's the first number which will be less than other? ";
+                cout << "What's the first number which will be less than second number? ";
                 cin >> firstValue;
 
-                cout << "What's the first number which will be less than other? ";
+                cout << "What's the second number which will be bigger than first number? ";
                 cin >> secondValue;
 
                 finishedStatement = "WHERE " + firstValue + "<" + secondValue;
@@ -271,7 +272,7 @@ STRING\n\ ");
             else if (isFirstField == "y" && isSecondField == "n") {
                 string value;
 
-                cout << "What's the number the field should be bigger than? ";
+                cout << "What's the number the field should be bigger than or equal to? ";
                 cin >> value;
 
                 finishedStatement = "WHERE " + FirstFieldName + ">=" + value;
@@ -281,10 +282,10 @@ STRING\n\ ");
                 string secondValue;
 
                 output("Example Format \nFirst Number: 2\nSecond Number:5\nResult:WHERE 2>=5");
-                cout << "What's the first number which will be bigger than other? ";
+                cout << "What's the first number which will be bigger than other or equal to? ";
                 cin >> firstValue;
 
-                cout << "What's the first number which will be bigger than other? ";
+                cout << "What's the second number which will be less than the first number or equal to? ";
                 cin >> secondValue;
 
                 finishedStatement = "WHERE " + firstValue + ">=" + secondValue;
@@ -298,7 +299,7 @@ STRING\n\ ");
             else if (isFirstField == "y" && isSecondField == "n") {
                 string value;
 
-                cout << "What's the number the field should be less than? ";
+                cout << "What's the number the field should be less than or equal to? ";
                 cin >> value;
 
                 finishedStatement = "WHERE " + FirstFieldName + "<=" + value;
@@ -308,15 +309,15 @@ STRING\n\ ");
                 string secondValue;
 
                 output("Example Format \nFirst Number: 2\nSecond Number:5\nResult:WHERE 2<=5");
-                cout << "What's the first number which will be less than other? ";
+                cout << "What's the first number which will be less than or equal to the other? ";
                 cin >> firstValue;
 
-                cout << "What's the first number which will be less than other? ";
+                cout << "What's the second number which will be less than or equal to first value? ";
                 cin >> secondValue;
 
                 finishedStatement = "WHERE " + firstValue + "<=" + secondValue;
             }
-            }
+        }
     }
 
     return finishedStatement;
