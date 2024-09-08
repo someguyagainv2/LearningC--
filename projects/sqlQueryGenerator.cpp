@@ -17,8 +17,8 @@ void helpCommand(string command) {
     if (command == "main") {
         out = "help \n\
 returnData\n\
-insertData\n\
-createTable\n\
+insertData ( NOT FINISHED )\n\
+createDatabase\n\
 deleteTable\n\
 deleteColumn\n\
 deleteDatabase\n\
