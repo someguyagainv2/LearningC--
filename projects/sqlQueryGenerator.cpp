@@ -2,7 +2,9 @@
 
 #include <iostream>
 
-using std::cout, std::cin, std::string;
+using std::cout;
+using std::cin;
+using std::string;
 
 void output(string text) { // makes life a bit easier
     cout << text << "\n";
@@ -30,6 +32,14 @@ setCriteria\n\
 setreturnFields\n\
 setOrder\n\
 finishQuery";
+    }
+    else if (command == "returnData.setCriteria") {
+        out = "equals\n\
+not_equals\n\
+bigger\n\
+less\n\
+bigger_equals >= \n\
+less_equals <= \n\ ";
     }
     output(out);
 }
@@ -84,6 +94,105 @@ string orderByStatement() {
     }
 }
 
+string setCriteria() {
+    output("what should the criteria check");
+    output("Use help to see options");
+    string finishedStatement;
+
+    while (true) {
+        string command;
+        cout << "root@SQLGenerator > returnData > setCriteria > ";
+        cin >> command;
+
+        if (cin.fail()) { cin.clear(); cin.ignore(256, '\n'); continue; } // I'm hoping implementing this continue will then skip running everything past this point
+
+        if (command == "help") { helpCommand("returnData.setCriteria"); }
+        if (command == "equals") {
+
+            string isFirstField;
+            string isSecondField;
+
+            output("Answer following questions with y or n");
+            cout << "Is the first value a field? ";
+            cin >> isFirstField;
+
+            cout << "Is the second value a field? ";
+            cin >> isSecondField;
+
+            if (isFirstField == "y" && isSecondField == "y") { // if both values are a field
+                string FirstFieldName;
+                string SecondFieldName;
+
+                cout << "Field Name #1: ";
+                cin >> FirstFieldName;
+
+                cout << "Field Name 2#: ";
+                cin >> SecondFieldName;
+
+                finishedStatement = "WHERE " + FirstFieldName + "=" + SecondFieldName;
+            }
+            else if (isFirstField == "y" && isSecondField == "n") {
+                while (true) {
+                    string fieldName;
+                    string fieldType;
+
+                    cout << "Field Name #1 Name: ";
+                    cin >> fieldName;
+
+                    cout << "What type of value is 2nd value \n";
+                    cout << "Type help to get a list\n";
+
+                    cout << "root@SQLGenerator > returnData > setCriteria >  fieldType > ";
+                    cin >> fieldType;
+
+                    if (cin.fail()) { cin.clear(); cin.ignore(256, '\n'); }
+                    
+                    if (fieldType == "help") {
+                        output("BOOL\n\
+NUMBER\n\
+STRING\n\ ");
+
+                    }
+                    else if (fieldType == "BOOL") {
+                        string boolType;
+                        cout << "True Or False: ";
+                        cin >> boolType;
+
+                        finishedStatement = "WHERE " + fieldName + "=" + boolType;
+                        break;
+                    }
+                    else if (fieldType == "STRING") {
+                        string valueToDetect;
+
+                        cout << "What's the string value to detect: ";
+                        cin >> valueToDetect;
+
+                        finishedStatement = "WHERE " + fieldName + "='" + valueToDetect + "'";
+                        break;
+                    }
+                    else if (fieldType == "NUMBER") {
+                        string valueToDetect;
+
+                        cout << "What's the integer's value to detect: ";
+                        cin >> valueToDetect;
+
+                        finishedStatement = "WHERE " + fieldName + "=" + valueToDetect;
+                        break;
+                    }
+                    else { output("Invalid Type"); }
+                }
+            }
+            else { output("Input Y or N."); }
+
+            if (!finishedStatement.empty()) {
+                break;
+            }
+        }
+    }
+
+    return finishedStatement;
+}
+
 void returnData() {
     output("Started returnData command use the help command ");
     string criteriaStatement = ""; // E.g WHERE 1=1
@@ -95,7 +204,10 @@ void returnData() {
 
     int amountOfFields;
 
-    while (true) {
+    // I do want to rewrite bunch of this to use direct pointers to variables so the functions don't nessecarily need to return anything and will adjust the variable accordingly
+
+    while (true) { // To keep it reoccuring if I used consistent function calls there wouldn't nessecarily be an end to the script and I couldn't exactly break out unless using return state
+        
         string command;
         cout << "root@SQLGenerator > returnData > ";
         cin >> command;
@@ -134,6 +246,8 @@ void returnData() {
         }
         else if (command == "finishQuery") { break; }
         else if (command == "help") { helpCommand("returnData"); }
+        else if (command == "setCriteria") { criteriaStatement = setCriteria(); criteria = true; } // Using these func calls in technicalities I could create reference then send it through as ptr allowing me to edit values
+        else { output("Invalid Command"); }
     }
 
     string finishedQuery = selectStatement;
