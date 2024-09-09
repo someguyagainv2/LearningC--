@@ -107,6 +107,33 @@ string orderByStatement() {
     }
 }
 
+void fieldConfig(string &isFirstField, string &isSecondField, string &FirstFieldName, string &SecondFieldName) {
+    output("Answer following questions with y or n");
+    cout << "Is the first value a field? ";
+    cin >> isFirstField;
+
+    cout << "Is the second value a field? ";
+    cin >> isSecondField;
+
+    if (isFirstField == "y" && isSecondField == "y") { // if both values are a field
+
+        cout << "Field Name #1: ";
+        cin >> FirstFieldName;
+
+        cout << "Field Name 2#: ";
+        cin >> SecondFieldName;
+    }
+    else if (isFirstField == "y" && isSecondField == "n") {
+
+        cout << "Field Name #1 Name: ";
+        cin >> FirstFieldName;
+    }
+}
+
+void exportFile() {
+
+}
+
 string setCriteria() {
     output("what should the criteria check");
     output("Use help to see options");
@@ -124,26 +151,7 @@ string setCriteria() {
         string SecondFieldName;
         string isSecondField;
 
-        output("Answer following questions with y or n");
-        cout << "Is the first value a field? ";
-        cin >> isFirstField;
-
-        cout << "Is the second value a field? ";
-        cin >> isSecondField;
-
-        if (isFirstField == "y" && isSecondField == "y") { // if both values are a field
-
-            cout << "Field Name #1: ";
-            cin >> FirstFieldName;
-
-            cout << "Field Name 2#: ";
-            cin >> SecondFieldName;
-        }
-        else if (isFirstField == "y" && isSecondField == "n") {
-
-            cout << "Field Name #1 Name: ";
-            cin >> FirstFieldName;
-        }
+        if (command == "equals" || command == "bigger" || command == "less" || command == "bigger_equals" || command == "less_equals") { fieldConfig(isFirstField, isSecondField, FirstFieldName, SecondFieldName); }
 
         if (command == "help") { helpCommand("returnData.setCriteria"); }
         else if (command == "equals") {
