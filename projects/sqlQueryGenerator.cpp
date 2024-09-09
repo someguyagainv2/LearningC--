@@ -1,10 +1,13 @@
 // THIS IS UNFINISHED AND I'M STILL WORKING ON
 
 #include <iostream>
+#include <fstream>
 
 using std::cout;
 using std::cin;
 using std::string;
+
+std::fstream fileManager;
 
 void output(string text) { // makes life a bit easier
     cout << text << "\n";
@@ -130,8 +133,22 @@ void fieldConfig(string &isFirstField, string &isSecondField, string &FirstField
     }
 }
 
-void exportFile() {
+void exportFile(string QueryToOutput) {
+    output("y or n.");
+    cout << "Would you like to export this to .sql file: ";
+    string answer;
 
+    cin >> answer;
+
+    if (answer == "y") {
+        fileManager.open("output.sql", std::fstream::trunc | std::fstream::out);
+        if (!fileManager.is_open()) {
+            output("Error Occured When Opening File!");
+            return;
+        }
+        fileManager << QueryToOutput;
+        fileManager.close();
+    }
 }
 
 string setCriteria() {
@@ -413,6 +430,7 @@ void returnData() {
         finishedQuery = finishedQuery + "\n" + orderStatement;
     }
 
+    exportFile(finishedQuery);
 
     output("Finished Query");
     cout << finishedQuery << "\n";
