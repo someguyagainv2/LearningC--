@@ -1,0 +1,14 @@
+#include <iostream>
+#include <fstream>
+
+using std::string;
+std::wofstream fileW;
+std::ofstream file;
+
+void createFileW(string path, string fileName) {
+    fileW.open(path + fileName, std::fstream::out | std::fstream::trunc);
+}
+
+void createFile(string path, string fileName) {
+    file.open(path + fileName, std::fstream::out | std::fstream::trunc);
+}
