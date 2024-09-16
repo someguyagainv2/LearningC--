@@ -6,8 +6,7 @@ bool isString(string checkValue) {
     for (auto x = checkValue.begin(); x != checkValue.end(); x++) {
         if (isdigit(*x)) {
             found = false;
-            break;
-        }
+        } else if (!isdigit(*x)) { found = true; }
     }
     return found;
 }
